@@ -63,22 +63,23 @@ namespace WebApplication1.Controllers
             return View(employee); // Show form again if validation fails
         }
 
+        // GET: /Employee/Delete/5
         public ActionResult Delete(String id)
         {
             EmpDAO empDAO = new EmpDAO();
             EmployeeModel employee = empDAO.GetEmployeeById(id);
-            return View(employee); // Pre-fill form with data
-        }
-        [HttpPost]
-        public ActionResult DeleteEmployee(String id)
-        {
-            
-            
-            EmpDAO empDAO = new EmpDAO();
-            empDAO.DeleteEmployee(id);
-            return RedirectToAction("Index"); // Show form again if validation fails
+            return View(employee);
         }
 
+        // POST: /Employee/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            EmpDAO empDAO = new EmpDAO();
+            empDAO.DeleteEmployee(id);
+            return RedirectToAction("Index");
+        }
 
 
     }
