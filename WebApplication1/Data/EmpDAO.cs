@@ -120,6 +120,66 @@ namespace WebApplication1.Data
                 cmd.ExecuteNonQuery();
             }
         }
+        // UPDATE
+        public void UpdateEmployee(EmployeeModel emp)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = @"UPDATE mytable SET 
+                         [Full Name] = @FullName,
+                         [Job Title] = @JobTitle,
+                         Department = @Department,
+                         [Business Unit] = @BusinessUnit,
+                         Gender = @Gender,
+                         Ethnicity = @Ethnicity,
+                         Age = @Age,
+                         [Hire Date] = @HireDate,
+                         [Annual Salary] = @AnnualSalary,
+                         [Bonus ] = @Bonus,
+                         Country = @Country,
+                         City = @City,
+                         [Exit Date] = @ExitDate
+                         WHERE EEID = @EEID";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                // Parameters
+                cmd.Parameters.AddWithValue("@EEID", emp.EEID);
+                cmd.Parameters.AddWithValue("@FullName", emp.FullName);
+                cmd.Parameters.AddWithValue("@JobTitle", emp.JobTitle);
+                cmd.Parameters.AddWithValue("@Department", emp.Department);
+                cmd.Parameters.AddWithValue("@BusinessUnit", emp.BusinessUnit);
+                cmd.Parameters.AddWithValue("@Gender", emp.Gender);
+                cmd.Parameters.AddWithValue("@Ethnicity", emp.Ethnicity);
+                cmd.Parameters.AddWithValue("@Age", emp.Age);
+                cmd.Parameters.AddWithValue("@HireDate", emp.HireDate);
+                cmd.Parameters.AddWithValue("@AnnualSalary", emp.AnnualSalary);
+                cmd.Parameters.AddWithValue("@Bonus", emp.Bonus);
+                cmd.Parameters.AddWithValue("@Country", emp.Country);
+                cmd.Parameters.AddWithValue("@City", emp.City);
+                cmd.Parameters.AddWithValue("@ExitDate", emp.ExitDate ?? (object)DBNull.Value);
+
+                // Execute
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteEmployee (String id)
+        {
+            using(SqlConnection con = new SqlConnection(connectionString)){
+                String query = @"DELETE FROM mytable WHERE EEID = @EEID";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@EEID", id);
+                con.Open();
+                cmd.ExecuteNonQuery();
+
+            }
+
+        }
+
+
+
 
 
 

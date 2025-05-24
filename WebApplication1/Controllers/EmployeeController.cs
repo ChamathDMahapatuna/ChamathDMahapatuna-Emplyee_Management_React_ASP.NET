@@ -41,6 +41,44 @@ namespace WebApplication1.Controllers
 
             return View(employee); 
         }
+        // GET: Update
+        public ActionResult Update(String id)
+        {
+            EmpDAO empDAO = new EmpDAO();
+            EmployeeModel employee = empDAO.GetEmployeeById(id);
+            return View(employee); // Pre-fill form with data
+        }
+
+        // POST: Update
+        [HttpPost]
+        public ActionResult Update(EmployeeModel employee)
+        {
+            if (ModelState.IsValid)
+            {
+                EmpDAO empDAO = new EmpDAO();
+                empDAO.UpdateEmployee(employee);
+                return RedirectToAction("Details", new { id = employee.EEID });
+            }
+
+            return View(employee); // Show form again if validation fails
+        }
+
+        public ActionResult Delete(String id)
+        {
+            EmpDAO empDAO = new EmpDAO();
+            EmployeeModel employee = empDAO.GetEmployeeById(id);
+            return View(employee); // Pre-fill form with data
+        }
+        [HttpPost]
+        public ActionResult DeleteEmployee(String id)
+        {
+            
+            
+            EmpDAO empDAO = new EmpDAO();
+            empDAO.DeleteEmployee(id);
+            return RedirectToAction("Index"); // Show form again if validation fails
+        }
+
 
 
     }
