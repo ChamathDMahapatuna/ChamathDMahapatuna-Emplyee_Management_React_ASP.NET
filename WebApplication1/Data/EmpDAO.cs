@@ -50,7 +50,46 @@ namespace WebApplication1.Data
             return list;
         }
 
-       
+        // READ ONE
+        public EmployeeModel GetEmployeeById(string id)
+        {
+            EmployeeModel emp = null;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM mytable WHERE EEID = @EEID";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@EEID", id);
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    emp = new EmployeeModel
+                    {
+                        EEID = reader["EEID"].ToString(),
+                        FullName = reader["Full Name"].ToString(),
+                        JobTitle = reader["Job Title"].ToString(),
+                        Department = reader["Department"].ToString(),
+                        BusinessUnit = reader["Business Unit"].ToString(),
+                        Gender = reader["Gender"].ToString(),
+                        Ethnicity = reader["Ethnicity"].ToString(),
+                        Age = Convert.ToInt32(reader["Age"]),
+                        HireDate = Convert.ToDateTime(reader["Hire Date"]),
+                        AnnualSalary = reader["Annual Salary"].ToString(),
+                        Bonus = reader["Bonus "].ToString(),
+                        Country = reader["Country"].ToString(),
+                        City = reader["City"].ToString(),
+                        ExitDate = reader["Exit Date"] == DBNull.Value ? null : (DateTime?)reader["Exit Date"]
+                    };
+                }
+
+                reader.Close();
+            }
+
+            return emp;
+        }
 
         public void AddEmployee(EmployeeModel emp)
         {
