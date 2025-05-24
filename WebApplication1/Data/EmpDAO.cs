@@ -52,7 +52,36 @@ namespace WebApplication1.Data
 
        
 
-       
+        public void AddEmployee(EmployeeModel emp)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = @"INSERT INTO mytable
+                             (EEID, [Full Name], [Job Title], Department, [Business Unit], Gender, Ethnicity, Age, [Hire Date], [Annual Salary], [Bonus ], Country, City, [Exit Date])
+                             VALUES 
+                             (@EEID, @FullName, @JobTitle, @Department, @BusinessUnit, @Gender, @Ethnicity, @Age, @HireDate, @AnnualSalary, @Bonus, @Country, @City, @ExitDate)";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@EEID", emp.EEID);
+                cmd.Parameters.AddWithValue("@FullName", emp.FullName);
+                cmd.Parameters.AddWithValue("@JobTitle", emp.JobTitle);
+                cmd.Parameters.AddWithValue("@Department", emp.Department);
+                cmd.Parameters.AddWithValue("@BusinessUnit", emp.BusinessUnit);
+                cmd.Parameters.AddWithValue("@Gender", emp.Gender);
+                cmd.Parameters.AddWithValue("@Ethnicity", emp.Ethnicity);
+                cmd.Parameters.AddWithValue("@Age", emp.Age);
+                cmd.Parameters.AddWithValue("@HireDate", emp.HireDate);
+                cmd.Parameters.AddWithValue("@AnnualSalary", emp.AnnualSalary);
+                cmd.Parameters.AddWithValue("@Bonus", emp.Bonus);
+                cmd.Parameters.AddWithValue("@Country", emp.Country);
+                cmd.Parameters.AddWithValue("@City", emp.City);
+                cmd.Parameters.AddWithValue("@ExitDate", emp.ExitDate ?? (object)DBNull.Value);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+        // UPDATE
         public void UpdateEmployee(EmployeeModel emp)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
