@@ -80,7 +80,11 @@ namespace WebApplication1.Controllers
             empDAO.DeleteEmployee(id);
             return RedirectToAction("Index");
         }
-
+        public ActionResult SearchForm()
+        {
+        
+            return View("searchForm");
+        }
 
     }
 }
