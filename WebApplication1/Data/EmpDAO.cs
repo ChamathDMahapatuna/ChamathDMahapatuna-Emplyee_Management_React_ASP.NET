@@ -198,7 +198,23 @@ namespace WebApplication1.Data
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
 
-         
+                while (reader.Read())
+                {
+                    employees.Add(new EmployeeModel
+                    {
+                        EEID = reader["EEID"].ToString(),
+                        FullName = reader["Full Name"].ToString(),
+                        JobTitle = reader["Job Title"].ToString(),
+                        Department = reader["Department"].ToString(),
+                        BusinessUnit = reader["Business Unit"].ToString(),
+                        Gender = reader["Gender"].ToString(),
+                        Ethnicity = reader["Ethnicity"].ToString(),
+                        Age = Convert.ToInt32(reader["Age"]),
+                        HireDate = Convert.ToDateTime(reader["Hire Date"]),
+                        AnnualSalary = reader["Annual Salary"].ToString(),
+                        Bonus = reader["Bonus "].ToString(),
+        
+
 
 
 
