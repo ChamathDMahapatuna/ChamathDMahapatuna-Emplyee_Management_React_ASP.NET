@@ -213,7 +213,17 @@ namespace WebApplication1.Data
                         HireDate = Convert.ToDateTime(reader["Hire Date"]),
                         AnnualSalary = reader["Annual Salary"].ToString(),
                         Bonus = reader["Bonus "].ToString(),
-        
+                        Country = reader["Country"].ToString(),
+                        City = reader["City"].ToString(),
+                        ExitDate = reader["Exit Date"] == DBNull.Value ? null : (DateTime?)reader["Exit Date"]
+                    });
+                }
+
+                reader.Close();
+            }
+
+            return employees;
+        }
 
 
 
