@@ -185,7 +185,18 @@ namespace WebApplication1.Data
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = @"SELECT * FROM mytable 
-           
+                         WHERE [Full Name] LIKE @Keyword 
+                            OR [Job Title] LIKE @Keyword 
+                            OR Department LIKE @Keyword 
+                            OR [Business Unit] LIKE @Keyword 
+                            OR City LIKE @Keyword 
+                            OR Country LIKE @Keyword";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Keyword", "%" + keyword + "%");
+
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
 
          
 
