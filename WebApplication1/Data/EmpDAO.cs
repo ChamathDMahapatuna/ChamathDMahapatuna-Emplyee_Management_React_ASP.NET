@@ -178,8 +178,16 @@ namespace WebApplication1.Data
 
         }
 
+        public List<EmployeeModel> SearchEmployees(string keyword)
+        {
+            List<EmployeeModel> employees = new List<EmployeeModel>();
 
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = @"SELECT * FROM mytable 
+           
 
+         
 
 
 
