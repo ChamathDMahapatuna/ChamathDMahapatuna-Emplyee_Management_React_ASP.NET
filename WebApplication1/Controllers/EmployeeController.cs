@@ -80,15 +80,15 @@ namespace WebApplication1.Controllers
             empDAO.DeleteEmployee(id);
             return RedirectToAction("Index");
         }
-     
 
-        // GET: Employee/Search?keyword=manager
-        public ActionResult Search(string keyword)
+        [HttpPost]
+        public ActionResult Search(string searchTerm)
         {
-             EmpDAO _employeeDAO = new EmpDAO();
-             List<EmployeeModel> employees = _employeeDAO.SearchEmployees(keyword);
-            return View("Index", employees); // Reuse your Index view, or create a Search view if needed
+            EmpDAO empDAO = new EmpDAO();
+            List<EmployeeModel> results = empDAO.SearchEmployees(searchTerm);
+            return View("Index", results); // reuse the same Index view to show results
         }
+
 
     }
 }

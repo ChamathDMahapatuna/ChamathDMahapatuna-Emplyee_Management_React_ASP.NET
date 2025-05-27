@@ -177,30 +177,22 @@ namespace WebApplication1.Data
             }
 
         }
-
-        public List<EmployeeModel> SearchEmployees(string keyword)
+        public List<EmployeeModel> SearchEmployees(string searchTerm)
         {
-            List<EmployeeModel> employees = new List<EmployeeModel>();
+            List<EmployeeModel> list = new List<EmployeeModel>();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = @"SELECT * FROM mytable 
-                         WHERE [Full Name] LIKE @Keyword 
-                            OR [Job Title] LIKE @Keyword 
-                            OR Department LIKE @Keyword 
-                            OR [Business Unit] LIKE @Keyword 
-                            OR City LIKE @Keyword 
-                            OR Country LIKE @Keyword";
-
+                string query = "SELECT * FROM mytable WHERE [Full Name] LIKE @SearchTerm";
                 SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@Keyword", "%" + keyword + "%");
+                cmd.Parameters.AddWithValue("@SearchTerm", "%" + searchTerm + "%");
 
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    employees.Add(new EmployeeModel
+                    list.Add(new EmployeeModel
                     {
                         EEID = reader["EEID"].ToString(),
                         FullName = reader["Full Name"].ToString(),
@@ -222,8 +214,9 @@ namespace WebApplication1.Data
                 reader.Close();
             }
 
-            return employees;
+            return list;
         }
+
 
 
 
