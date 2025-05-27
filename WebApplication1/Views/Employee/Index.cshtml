@@ -6,7 +6,10 @@
 }
 
 <h1>Index</h1>
-
+<form asp-action="Search" method="post" class="mb-3">
+    <input type="text" name="searchTerm" class="form-control" placeholder="Search by name" />
+    <button type="submit" class="btn btn-primary mt-2">Search</button>
+</form>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
