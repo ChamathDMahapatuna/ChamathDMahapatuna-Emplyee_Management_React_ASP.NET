@@ -26,12 +26,7 @@ namespace WebApplication1.Controllers
             return Ok(employee);
         }
 
-        [HttpPost("Create")]
-        public IActionResult Create([FromBody] EmployeeModel emp)
-        {
-            _empDAO.AddEmployee(emp);
-            return Ok();
-        }
+      
 
         [HttpPost("Update")]
         public IActionResult Update([FromBody] EmployeeModel emp)
