@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getEmployees } from './services/employeeService'; // adjust the path if needed
+import { getEmployees } from '../Services/employeeService'; // adjust the path if needed
 
 function EmployeeList() {
   const [employees, setEmployees] = useState([]);
