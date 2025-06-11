@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { getEmployees } from './services/employeeService'; // adjust the path if needed
 
 function EmployeeList() {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Adjust the URL to match your .NET backend endpoint and port
-    axios.get('https://localhost:44380/api/values')
-      .then(response => {
-        setEmployees(response.data);
-        setLoading(false);
-      })
-      .catch(error => {
+    const fetchData = async () => {
+      try {
+        const data = await getEmployees();
+        setEmployees(data);
+      } catch (error) {
         console.error('Error fetching employees:', error);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   if (loading) {
@@ -45,7 +47,7 @@ function EmployeeList() {
           </tr>
         </thead>
         <tbody>
-          {employees.map(emp => (
+          {Array.isArray(employees) && employees.map(emp => (
             <tr key={emp.eeid}>
               <td>{emp.eeid}</td>
               <td>{emp.fullName}</td>
