@@ -7,7 +7,7 @@ function EmployeeList() {
 
   useEffect(() => {
     // Adjust the URL to match your .NET backend endpoint and port
-    axios.get('https://localhost:5001/api/values')
+    axios.get('https://localhost:44380/api/values')
       .then(response => {
         setEmployees(response.data);
         setLoading(false);

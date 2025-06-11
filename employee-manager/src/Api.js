@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://localhost:5001'; // Adjust port if different
+const API_URL = 'https://localhost:44380'; // Adjust port if different
 
 export const getAllEmployees = () => axios.get(`${API_URL}/Employee`);
 export const getEmployeeById = (id) => axios.get(`${API_URL}/Employee/Details/${id}`);
