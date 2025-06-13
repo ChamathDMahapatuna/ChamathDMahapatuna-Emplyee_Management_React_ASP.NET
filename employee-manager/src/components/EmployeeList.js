@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { getEmployees } from '../Services/employeeService'; // adjust the path if needed
+import { getEmployees } from '../Services/employeeService';
+import './EmployeeList.css';
 
 function EmployeeList() {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,53 +22,61 @@ function EmployeeList() {
     fetchData();
   }, []);
 
+  const filteredEmployees = employees.filter(emp =>
+    emp.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    emp.department.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   if (loading) {
-    return <div>Loading employees...</div>;
+    return (
+      <div className="loading-container">
+        <div className="loader"></div>
+        <p>Loading employees...</p>
+      </div>
+    );
   }
 
   return (
-    <div>
-      <h2>Employee List</h2>
-      <table border="1" cellPadding="8" cellSpacing="0">
-        <thead>
-          <tr>
-            <th>EEID</th>
-            <th>Full Name</th>
-            <th>Job Title</th>
-            <th>Department</th>
-            <th>Business Unit</th>
-            <th>Gender</th>
-            <th>Ethnicity</th>
-            <th>Age</th>
-            <th>Hire Date</th>
-            <th>Annual Salary</th>
-            <th>Bonus</th>
-            <th>Country</th>
-            <th>City</th>
-            <th>Exit Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Array.isArray(employees) && employees.map(emp => (
-            <tr key={emp.eeid}>
-              <td>{emp.eeid}</td>
-              <td>{emp.fullName}</td>
-              <td>{emp.jobTitle}</td>
-              <td>{emp.department}</td>
-              <td>{emp.businessUnit}</td>
-              <td>{emp.gender}</td>
-              <td>{emp.ethnicity}</td>
-              <td>{emp.age}</td>
-              <td>{emp.hireDate ? new Date(emp.hireDate).toLocaleDateString() : ''}</td>
-              <td>{emp.annualSalary}</td>
-              <td>{emp.bonus}</td>
-              <td>{emp.country}</td>
-              <td>{emp.city}</td>
-              <td>{emp.exitDate ? new Date(emp.exitDate).toLocaleDateString() : ''}</td>
-            </tr>
+    <div className="employee-list-container">
+      <div className="header-section">
+        <h2>Employee Directory</h2>
+        <div className="search-box">
+          <input
+            type="text"
+            placeholder="Search employees..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+      </div>
+
+      <div className="table-container">
+        <div className="employee-grid">
+          {filteredEmployees.map(emp => (
+            <div className="employee-card" key={emp.eeid}>
+              <div className="employee-header">
+                <h3>{emp.fullName}</h3>
+                <span className="employee-id">ID: {emp.eeid}</span>
+              </div>
+              <div className="employee-info">
+                <p><strong>Role:</strong> {emp.jobTitle}</p>
+                <p><strong>Department:</strong> {emp.department}</p>
+                <p><strong>Location:</strong> {emp.city}, {emp.country}</p>
+                <div className="employee-details">
+                  <div>
+                    <strong>Hire Date:</strong>
+                    <span>{emp.hireDate ? new Date(emp.hireDate).toLocaleDateString() : 'N/A'}</span>
+                  </div>
+                  <div>
+                    <strong>Salary:</strong>
+                    <span>${emp.annualSalary?.toLocaleString()}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           ))}
-        </tbody>
-      </table>
+        </div>
+      </div>
     </div>
   );
 }

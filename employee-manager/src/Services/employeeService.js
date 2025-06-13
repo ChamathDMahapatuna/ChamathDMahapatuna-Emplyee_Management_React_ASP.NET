@@ -11,3 +11,14 @@ export const getEmployees = async () => {
     throw error; // Let the caller handle the error
   }
 };
+
+export const getEmployeeById = async (id) => {
+  try {
+    const response = await axios.get(`${API_URL}/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error; // Let the caller handle the error
+  }
+}
+
+
