@@ -10,19 +10,19 @@ function UpdateEmployee() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const fetchEmployee = async () => {
+      try {
+        const data = await getEmployeeById(id);
+        setEmployee(data);
+      } catch (err) {
+        setError('Failed to fetch employee details');
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchEmployee();
   }, [id]);
-
-  const fetchEmployee = async () => {
-    try {
-      const data = await getEmployeeById(id);
-      setEmployee(data);
-    } catch (err) {
-      setError('Failed to fetch employee details');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -126,17 +126,6 @@ function UpdateEmployee() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Annual Salary</label>
-                <input
-                  type="number"
-                  name="annualSalary"
-                  value={employee?.annualSalary || ''}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                />
-              </div>
-
-              <div>
                 <label className="block text-sm font-medium text-gray-700">City</label>
                 <input
                   type="text"
@@ -153,6 +142,17 @@ function UpdateEmployee() {
                   type="text"
                   name="country"
                   value={employee?.country || ''}
+                  onChange={handleChange}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Annual Salary</label>
+                <input
+                  type="number"
+                  name="annualSalary"
+                  value={employee?.annualSalary || ''}
                   onChange={handleChange}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                 />

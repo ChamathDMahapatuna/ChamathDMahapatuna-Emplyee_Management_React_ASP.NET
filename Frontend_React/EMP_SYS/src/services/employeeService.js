@@ -31,8 +31,8 @@ export const updateEmployee = async (id, employeeData) => {
 
 export const deleteEmployee = async (id) => {
   try {
-    const response = await axios.delete(`${API_URL}/${id}`);
-    return response.data;
+    await axios.delete(`${API_URL}/${id}`);
+    return true;
   } catch (error) {
     throw error;
   }

@@ -11,8 +11,8 @@ function App() {
       <Routes>
         <Route path="/" element={<EmployeeList />} />
         {/* <Route path="/employee/:id" element={<EmployeeDetails />} />
-        <Route path="/add" element={<AddEmployee />} />
-        <Route path="/edit/:id" element={<UpdateEmployee />} /> */}
+        <Route path="/add" element={<AddEmployee />} /> */}
+        <Route path="/edit/:id" element={<UpdateEmployee />} />
       </Routes>
     </Router>
   );

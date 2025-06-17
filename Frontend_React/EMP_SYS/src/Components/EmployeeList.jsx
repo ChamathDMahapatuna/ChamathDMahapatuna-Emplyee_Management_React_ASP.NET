@@ -29,6 +29,10 @@ function EmployeeList() {
     emp.fullName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleCardClick = (id) => {
+    navigate(`/edit/${id}`);
+  };
+
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px]">
@@ -78,18 +82,9 @@ function EmployeeList() {
           {filteredEmployees.map(emp => (
             <div 
               key={emp.eeid}
-              className="group bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 relative"
+              onClick={() => handleCardClick(emp.eeid)}
+              className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
             >
-              {/* Edit Button - Shows on Hover */}
-              <div className="absolute inset-0 bg-indigo-500 bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300 rounded-xl">
-                <button
-                  onClick={() => navigate(`/update-employee/${emp.eeid}`)}
-                  className="absolute top-4 right-4 bg-indigo-600 text-white px-3 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-indigo-700"
-                >
-                  Edit
-                </button>
-              </div>
-
               <div className="p-6">
                 <div className="flex items-center border-b border-gray-100 pb-4 mb-4">
                   <div className="h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-semibold text-lg">
@@ -120,21 +115,6 @@ function EmployeeList() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                     <span className="text-gray-600">{emp.city}, {emp.country}</span>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-4 pt-4 mt-4 border-t border-gray-100">
-                    <div className="bg-gray-50 p-3 rounded-lg">
-                      <p className="text-xs font-medium text-gray-500">Hire Date</p>
-                      <p className="text-sm font-medium text-gray-900">
-                        {emp.hireDate ? new Date(emp.hireDate).toLocaleDateString() : 'N/A'}
-                      </p>
-                    </div>
-                    <div className="bg-gray-50 p-3 rounded-lg">
-                      <p className="text-xs font-medium text-gray-500">Annual Salary</p>
-                      <p className="text-sm font-medium text-gray-900">
-                        ${emp.annualSalary?.toLocaleString()}
-                      </p>
-                    </div>
                   </div>
                 </div>
               </div>
