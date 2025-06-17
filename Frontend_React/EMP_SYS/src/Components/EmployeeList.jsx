@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getEmployees } from '../services/employeeService';
 
 function EmployeeList() {
+  const navigate = useNavigate();
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -76,8 +78,18 @@ function EmployeeList() {
           {filteredEmployees.map(emp => (
             <div 
               key={emp.eeid}
-              className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+              className="group bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 relative"
             >
+              {/* Edit Button - Shows on Hover */}
+              <div className="absolute inset-0 bg-indigo-500 bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300 rounded-xl">
+                <button
+                  onClick={() => navigate(`/update-employee/${emp.eeid}`)}
+                  className="absolute top-4 right-4 bg-indigo-600 text-white px-3 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-indigo-700"
+                >
+                  Edit
+                </button>
+              </div>
+
               <div className="p-6">
                 <div className="flex items-center border-b border-gray-100 pb-4 mb-4">
                   <div className="h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-semibold text-lg">
