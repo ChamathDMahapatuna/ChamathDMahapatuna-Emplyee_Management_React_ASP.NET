@@ -6,7 +6,7 @@ function EmployeeList() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // ...existing fetchData code...
+
 
   if (loading) {
     return (
