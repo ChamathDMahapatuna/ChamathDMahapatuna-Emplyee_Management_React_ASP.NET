@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import EmployeeList from './components/EmployeeList';
-import AddEmployee from './components/AddEmployee';
-import UpdateEmployee from './components/UpdateEmployee';
-import EmployeeDetails from './components/EmployeeDetails';
+import EmployeeList from './Components/EmployeeList';
+import AddEmployee from './Components/AddEmployee';
+import UpdateEmployee from './Components/UpdateEmployee';
+
 
 function App() {
   return (
